@@ -13,6 +13,7 @@
 ## 发布
 
 ```hexo generate```
+
 ```hexo deploy```
 
 ## 查看
