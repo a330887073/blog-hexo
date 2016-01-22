@@ -1,8 +1,8 @@
-# 准备
+## 准备
 
 安装Hexo，使用```npm install hexo-cli -g```。npm是node的包管理器，安装nodejs之后会自动存在。
 
-# 撰写博客
+## 撰写博客
 
 ```hexo new "新的文章名"```
 
@@ -10,11 +10,11 @@
 
 参考 https://hexo.io/docs/writing.html
 
-# 发布
+## 发布
 
 ```hexo generate```
 ```hexo deploy```
 
-# 查看
+## 查看
 
 http://campusappcn.github.io
