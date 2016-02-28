@@ -1,11 +1,11 @@
---
+---
 layout: post
 title: Spring测试替换注入的Bean (Mock)
 date: 2016-02-28
 categories: blog
 tags: [Spring, Mock bean, Injection]
 description: 如何在Spring的测试中，动态的替换自动注入的bean，以方便测试
---
+---
 
 依赖注入框架在诞生之初的初衷，就是为了方便通过替换Bean，替换对象以是的程序有更好的可扩展性。运行时的Bean是通过Xml配置的，只要符合特定的接口，可以随意配置具体的实现类，让程序可以自由装配、修改、拓展、测试。
 
