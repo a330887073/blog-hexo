@@ -2,13 +2,14 @@ layout: post
 title: ReactiveCocoa2.5修炼 (一)
 date: 2016-02-28 15:26:02
 tags: [iOS,ReactiveCocoa]
+author: Kael
 ---
 
 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)是一个FRP的思想(函数式编程思想)在Objective-C中的实现框架,因此,在使用过程中,我们会发现RAC的参数都是一个block.到目前为此,我觉得RAC在做项目过程带来最大的便利是对状态能有很好的控制,以及花式操作数据...自然block作为方法参数使代码变得高聚合,方便了阅读.本文主要对RACSignal类源码进行阅读,来弄明白开发过程中想要弄明白的东西.
 
 本文主要内容:
 1.RACSignal类的简单使用
-2.subscribeNext就能处理数据,看看RAC源码是怎么做的
+2.subscribeNext就能处理数据,看看RAC源码是怎么做的,这个订阅过程是怎么样的
 
 ## RACSignal
 RAC的核心,如果用RAC写项目,这个家伙应该是项目中使用次数最多的类.
@@ -176,6 +177,29 @@ void (^nextBlock)(id x)=^(id x)
 
 **2.didSubscribe如果不调用send的一系列方法,那么订阅也是没有用的**
 
+## 做一些测试
+
+{% codeblock lang:objc %}
+__block unsigned subscriptions=0;
+RACDisposable*(^didSubscribe)(id<RACSubscriber> subscriber)=^RACDisposable *(id<RACSubscriber> subscriber)
+{
+    subscriptions++;
+    [subscriber sendNext:@(subscriptions)];
+    return nil;
+};
+RACSignal *signal=[RACSignal createSignal:didSubscribe];
+
+[signal subscribeNext:^(id x) {
+   NSLog(@"x--%@",x);
+}];
+[signal subscribeNext:^(id x) {
+    NSLog(@"x--%@",x);
+}];
+{% endcodeblock %}
+
+输出:     
+2016-02-29 15:53:59.239 RACFunTest[11936:604366] x--1    
+2016-02-29 15:53:59.240 RACFunTest[11936:604366] x--2
 
 -----------
 下次作文内容:信号map,merge,concat,then操作的源码阅读
