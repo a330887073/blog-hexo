@@ -4,7 +4,7 @@ date: 2016-02-28 15:26:02
 tags: [iOS,ReactiveCocoa]
 ---
 
-[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)是一个FRP的思想(函数式编程思想)在Objective-C中的实现框架,因此,在使用过程中,我们会发现RAC的参数都是一个block, 到目前为此,我觉得RAC在做项目过程带来最大的便利是对状态能有很好的控制,以及花式操作数据...自然block作为参数使代码变得高聚合,方便了阅读.
+[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)是一个FRP的思想(函数式编程思想)在Objective-C中的实现框架,因此,在使用过程中,我们会发现RAC的参数都是一个block.到目前为此,我觉得RAC在做项目过程带来最大的便利是对状态能有很好的控制,以及花式操作数据...自然block作为方法参数使代码变得高聚合,方便了阅读.本文主要对RACSignal类源码进行阅读,来弄明白开发过程中想要弄明白的东西.
 
 本文主要内容:
 1.RACSignal类的简单使用
@@ -28,10 +28,10 @@ RACSignal *signal=[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> sub
 
 {% endcodeblock %}
 
-可以看到createSignal:的参数就是一个返回RACDisposable,参数的是实现了RACSubscriber协议的subscriber的block
-subscribeNext:参数就是一个返回void ,参数是随意对象的block
+可以看到createSignal:的参数就是一个block(一个返回RACDisposable,参数的是实现了RACSubscriber协议的subscriber的block)
+subscribeNext:参数也是一个block(一个返回void ,参数是随意对象的block)
 
-这样写更容易从源码中解释
+为了看的清楚些,可以这样写
 {% codeblock lang:objc %}
 //定义一个返回RACDisposable的block叫didSubscribe,作为createSignal参数
 RACDisposable*(^didSubscribe)(id<RACSubscriber> subscriber)=^RACDisposable *(id<RACSubscriber> subscriber)
@@ -48,6 +48,7 @@ void (^nextBlock)(id x)=^(id x)
 [signal subscribeNext:nextBlock];
 {% endcodeblock %}
 
+## 看看源码是怎么写的
 ### 1.[RACSignal createSignal:]返回Signal
 {% codeblock lang:objc %}
 //RACSignal.m
@@ -67,7 +68,8 @@ void (^nextBlock)(id x)=^(id x)
 
 **可以看到RACSignal实际是调用了子类RACDynamicSignal来创建Signal**
 
-**RACDynamicSignal保存了didSubscribe(创建只是保存,这段代码并没有起效),所以现在create出来的Signal内部携带了上文中定义的叫didSubscribe的block**
+**子类RACDynamicSignal中有一个didSubscribe的block属性,RACDynamicSignal保存了didSubscribe(这段代码并没有起效)**
+**所以返回的Signal内部携带了didSubscribe**
 
 
 ### 2.[signal subscribeNext:]做了什么
@@ -113,11 +115,13 @@ void (^nextBlock)(id x)=^(id x)
 }
 {% endcodeblock %}
 
-**可以看到subscribeNext方法内部,产生了一个新的RACSubscriber,RACSubscriber的创建方法中,又将nextBlock,保存在subscriber->_next中**
+**可以看到subscribeNext方法内部,产生了一个新的对象RACSubscriber *o,*o的创建方法中,又将nextBlock调用subscriber->_next,保存在o的next属性中**
 
 **目前为止createSignal在做准备工作,subscribeNext内部的第一步创建了RACSubscriber的实例也是准备工作**
 
-**RACSignal的[self subscribe:o]由子类RACDynamicSignal实现,在RACDynamicSignal.m中可以看到RACDisposable  *innerDisposable = self.didSubscribe(subscriber)**
+**接来下就是[self subscribe:o]**
+
+**RACSignal的[self subscribe:o]由子类RACDynamicSignal实现,在RACDynamicSignal.m中[self subscribe:o]方法可以看到这一行代码RACDisposable  *innerDisposable = self.didSubscribe(subscriber)--开始执行block了**
 
 ### 3.self.didSubscribe(subscriber)
 这个didSubscribe被调用了,并且传入了一个subscriber,(这个subscriber内部有一个nextBlock)
@@ -147,8 +151,10 @@ void (^nextBlock)(id x)=^(id x)
 {% endcodeblock %}
 
 **didSubscribe被调用,会执行到[subscriber sendNext:]方法**
-**sendNext:方法将保存在自己身上的nextBlock取出(void (^nextBlock)(id) = [self.next copy]),然后执行nextBlock(value);**
+**在RACSubscriber.m的sendNext:方法将保存在自己身上的nextBlock取出(void (^nextBlock)(id) = [self.next copy]),然后执行nextBlock(value);**
+**就是这样Signal可以被订阅产生数据**
 
+**senderr和sendcomplete的执行过程和sendNext类似**
 
 ## 整理下过程
 1.[RACSignal createSignal:didSubscribe]创建信号,signal内保存didSubscribe
@@ -164,6 +170,12 @@ void (^nextBlock)(id x)=^(id x)
 6.[subscriber sendNext]将subscriber中保存的nextBlock取出,执行,
 
 7,进入nextBlock的block回调,即NSLog(@"x--%@",x);
+
+## 从阅读源码过程中,我们可以知道的
+**1.如果没有被订阅,那么didSubscribe是不会执行的,**
+
+**2.didSubscribe如果不调用send的一系列方法,那么订阅也是没有用的**
+
 
 -----------
 下次作文内容:信号map,merge,concat,then操作的源码阅读
