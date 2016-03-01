@@ -5,6 +5,7 @@ date: 2016-02-20
 categories: blog
 tags: [Java web,Spring,Spring MVC,HTTP]
 description: 本篇博客主要介绍如何通过Spring MVC修改HTTP请求中的参数
+author: nius
 ---
 
 由于历史原因，新项目里使用了一个国人写的PageHelper用做Mybatis的查询分页。PageHelper的使用起来是这样的:
