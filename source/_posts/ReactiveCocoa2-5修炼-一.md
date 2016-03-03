@@ -5,7 +5,7 @@ tags: [iOS,ReactiveCocoa]
 author: Kael
 ---
 
-[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)是一个FRP的思想(函数式编程思想)在Objective-C中的实现框架,因此,在使用过程中,我们会发现RAC的参数都是一个block.到目前为此,我觉得RAC在做项目过程带来最大的便利是对状态能有很好的控制,以及花式操作数据...自然block作为方法参数使代码变得高聚合,方便了阅读.本文主要对RACSignal类源码进行阅读,来弄明白开发过程中想要弄明白的东西.
+[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)是一个FRP的思想(函数式编程思想)在Objective-C中的实现框架,因此,在使用过程中,我们会发现RAC的参数都是一个block.到目前为此,我觉得RAC在做项目过程带来最大的便利是对状态能有很好的控制,自然block作为方法参数使代码变得高聚合,方便了阅读.本文主要对RACSignal类源码进行阅读,来弄明白开发过程中想要弄明白的东西.
 
 本文主要内容:
 1.RACSignal类的简单使用
@@ -160,7 +160,7 @@ void (^nextBlock)(id x)=^(id x)
 ## 整理下过程
 1.[RACSignal createSignal:didSubscribe]创建信号,signal内保存didSubscribe
 
-2.[signal subscribeNext:nextBlock]信号被订阅,此方法内部产生一个RACSubscriber的实例subscriber,将nextBlock保存在subscriber中
+2.[signal subscribeNext:nextBlock]信号被订阅,此方法内部产生一个RACSubscriber的实例subscriber,将nextBlock保存在subscriber中.(每次subscribeNext就会产生一个RACSubscriber的实例)
 
 3.[signal subscribeNext:nextBlock]方法内接着调用[self subscribe:subscriber]方法,将保存了nextBlock的subscriber传递,
 

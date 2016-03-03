@@ -5,7 +5,11 @@ tags: [iOS,ReactiveCocoa]
 author: Kael
 ---
 
-上一篇阅读了`RACSignal`订阅过程的一些源码,这一篇来看看流的一系列操作Mapping,Filtering,Concatenating,Flattening....
+上一篇阅读了`RACSignal`订阅过程的一些源码,这一篇来看看流的一系列操作Mapping,Filtering
+本文主要内容:
+1.map操作的源码阅读;(其实是flattenMap:的源码)
+2.filter操作
+3.信号RACEmptySignal
 
 ## RACStream
 `RACStream`是`RACSignal`和`RACSequence`的父类,所以很多方法定义在`RACStream`中,`RACStream`是一个抽象类.     
@@ -256,7 +260,7 @@ void (^addSignal)(RACSignal *) = ^(RACSignal *signal) {
 }];
 ```
 
-## 整理下过程
+### 整理下过程
 1.对一个`RACSignal`调用`map:`方法后,会产生新的数据流mappedSignal
 2.订阅mappedSignal
 3.mappedSignal内各种回调,回调到`map:`的处理过程,即栗子中
@@ -266,7 +270,7 @@ void (^addSignal)(RACSignal *) = ^(RACSignal *signal) {
 6.[subscriber sendNext:x];mappedSignal的订阅者获得结果
 其实看似简单的一个map,内部实现起来却不容易.
 
-## 开发中可能遇到的场景:验证密码输入框的字数
+### 开发中可能遇到的场景:验证密码输入框的字数
 密码长度大于6时候,登入按钮才可以点击
 ```objc
 __weak typeof(self) weakSelf = self;
@@ -276,6 +280,42 @@ __weak typeof(self) weakSelf = self;
 }] subscribeNext:^(id x) {
     NSLog(@"x--%@",x);
     weakSelf.loginBtn.enabled=[x integerValue]>6;
+} error:^(NSError *error) {
+    NSLog(@"error");//正常情况下这个error是不会被调用的
+}];
+```
+
+### flattenMap的一个应用场景
+上一块代码中的error不会被调用,因为rac_textSignal正常下不会发error,那么我想要流有判断错误的功能怎么办呢,
+1.订阅rac_textSignal,再外层重新创建一个会发送error的newSignal,然后订阅newSignal
+```objc
+__weak typeof(self) weakSelf = self;
+RACSignal *newSignal=[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    [weakSelf.pwdTextField.rac_textSignal subscribeNext:^(NSString *text) {
+        text.length<6?[subscriber sendError:nil]:[subscriber sendNext:@(text.length)];
+    }];
+    return nil;
+}];
+[newSignal subscribeNext:^(id x) {
+    weakSelf.loginBtn.enabled=YES;
+} error:^(NSError *error) {
+    weakSelf.loginBtn.enabled=NO;
+}];
+```
+2.用flattenMap
+```objc
+__weak typeof(self) weakSelf = self;
+[[self.pwdTextField.rac_textSignal flattenMap:^RACStream *(NSString *text) {
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        text.length<6?[subscriber sendError:nil]:[subscriber sendNext:@(text.length)];
+        return nil;
+    }];
+}] subscribeNext:^(id x) {
+    NSLog(@"x--%@",x);
+    weakSelf.loginBtn.enabled=YES;
+} error:^(NSError *error) {
+    NSLog(@"error");
+    weakSelf.loginBtn.enabled=NO;
 }];
 ```
 
@@ -350,4 +390,4 @@ BOOL removeDisposable = NO;
 if (removeDisposable) [compoundDisposable removeDisposable:finishedDisposable];
 };
 ```
-从代码中可以看到[subscriber sendCompleted];
+从代码中可以看到[subscriber sendCompleted]就这样,类似发送了一个空信号,subscribeNext的block就不会被调用;
