@@ -7,10 +7,10 @@ categories: blog
 tags: [Development,Android]
 description: 本篇博客主要分析目前主流的Android测试框架AndroidJunitTest
 ---
-#背景
+# 背景
 最近稍等空闲，考虑到我们项目测试覆盖率几乎等于0，因此痛下决心决定研究下Android单元测试。
 
-#单元测试的类型
+# 单元测试的类型
 首先我们需要明确安卓的单元测试主要分为两种类型：
 
 * 在开发主机Java虚拟机上运行的Junit Test
@@ -26,7 +26,7 @@ description: 本篇博客主要分析目前主流的Android测试框架AndroidJu
 另外这两种测试都只有在debugable = true的编译类型的时候才能运行。
 了解了单元测试的两个基本类型，接下来让我们来了解下目前主流的单元测试框架或者说工具。
 
-#AndroidJunit
+# AndroidJunit
 Junit是Java开发中应用最多的单元测试框架，目前已经到Junit4。在Android的单元测试中我们同样可以使用它，如果是Junit Test，可以直接使用Java的Junit4。而如果测试的类必须使用Instrument Test，则我们需要使用AndroidJunitTest
 首先在build.gradle文件中的defaultConfig中加入如下设置，设置使用的Instrument test的runner 为AndroidJunitRunner。
 
