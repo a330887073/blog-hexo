@@ -31,6 +31,8 @@ ___
 ### 3.<span id="jump3">*`NSForegroundColorAttributeName`* <span/>//字颜色  UIColor
 ### 4.<span id="jump4">*`NSBackgroundColorAttributeName`* <span/>//背景色  UIColor
 
+<!-- more -->
+
 ---
 ### 5.<span id="jump5">*`NSLigatureAttributeName`*<span/> //连写,iOS只支持@(0)和@(1)
 ><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2D1MflFXXXXaOXXXXXXXXXXXX_!!373400920.png" width = "272" height = "201" style="margin: 0">
@@ -84,6 +86,7 @@ NSUnderlineByWord NS_ENUM_AVAILABLE(10_0, 7_0)            = 0x8000//按单词分
 ### 12.<span id="jump12">*`NSTextEffectAttributeName`*</span>//凸版印刷体(现在就只有NSTextEffectLetterpressStyle一个值)
 凸版印刷替效果是给文字加上奇妙阴影和高光，让文字看起有凹凸感，像是被压在屏幕上(这个描述真是有够夸张 = =!)
 ><img src="https://img.alicdn.com/imgextra/i3/373400920/TB29UgalFXXXXaXXpXXXXXXXXXX_!!373400920.png" width = "466" height = "47" style="margin: 0">
+
 
 ---
 ### 13.<span id="jump13">*`NSAttachmentAttributeName`*</span>//图文混排相关

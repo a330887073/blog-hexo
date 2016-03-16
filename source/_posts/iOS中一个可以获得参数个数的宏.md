@@ -27,6 +27,8 @@ metamacro_argcount(NSObject, version)
 metamacro_at(20, NSObject, version, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
 ```
 
+<!-- more -->
+
 `metamacro_at(N, ...)`定义:
      
 ```c
