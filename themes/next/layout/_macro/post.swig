@@ -47,6 +47,13 @@
         {% endif %}
 
         <div class="post-meta">
+
+        {%if post.url %}
+          <a href='{{post.url}}' class="post-author">{{post.author}}</a>
+          {% else %}
+          <span class="post-author">{{post.author}}</span>
+        {% endif %}
+
           <span class="post-time">
             <span class="post-meta-item-icon">
               <i class="fa fa-calendar-o"></i>
