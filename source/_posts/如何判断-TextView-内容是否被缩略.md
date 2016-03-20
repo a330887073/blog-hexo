@@ -65,4 +65,4 @@ textView.post(new Runnable() {
 });
 ```
 
-[1]:(http://developer.android.com/intl/es/reference/android/text/Layout.html) 
+[1]:http://developer.android.com/intl/es/reference/android/text/Layout.html

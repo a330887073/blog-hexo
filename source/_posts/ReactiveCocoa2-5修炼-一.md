@@ -32,6 +32,8 @@ RACSignal *signal=[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> sub
 可以看到createSignal:的参数就是一个block(一个返回RACDisposable,参数的是实现了RACSubscriber协议的subscriber的block)
 subscribeNext:参数也是一个block(一个返回void ,参数是随意对象的block)
 
+<!-- more -->
+
 为了看的清楚些,可以这样写
 {% codeblock lang:objc %}
 //定义一个返回RACDisposable的block叫didSubscribe,作为createSignal参数
