@@ -8,7 +8,7 @@ author: nius
 url: http://nius.me
 ---
 
-Pan的框架使用起来很简单。采用Pan来编写界面和控制代码，可以和原有的代码完全兼容。
+[Pan (https://github.com/campusappcn/Pan)](https://github.com/campusappcn/Pan)框架使用起来很简单。采用[Pan](https://github.com/campusappcn/Pan)来编写界面和控制代码，可以和原有的代码完全兼容、并存。
 
 首先，是轻量化的Activity代码，主要通过Pan的工厂方法with，得到ViewModel的实例，绑定ViewModel和Controller到Activity上。工厂方法with有很多重载，也可以传入使用实例化好的对象。
 
