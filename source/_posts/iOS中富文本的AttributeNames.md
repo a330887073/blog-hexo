@@ -3,9 +3,12 @@ date: 2016-03-15 11:14:28
 tags: [iOS,CoreText,NSAttributedString]
 author: Kael
 ---
+
+本文主要为项目中无处不在的NSAttributedString的属性做一次整理,方便之后开发时查询和测试
+<!-- more -->
 ## 目录:
 [1. NSFontAttributeName;](#jump1)
-[2. NSParagraphStyleAttributeName;](#jump2)(这周作业内容)
+[2. NSParagraphStyleAttributeName;](#jump2)
 [3. NSForegroundColorAttributeName;](#jump3)
 [4. NSBackgroundColorAttributeName;](#jump4)
 [5. NSLigatureAttributeName;](#jump5)
@@ -28,18 +31,22 @@ author: Kael
 
 ___
 ### 1.<span id="jump1">*`NSFontAttributeName`*<span/>//字体 UIFont 
+### 2.<span id="jump2">*`NSParagraphStyleAttributeName`*<span/>//段落样式
+以下截图来自[YYText](https://github.com/ibireme/YYText)
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2ZS2ylVXXXXcpXXXXXXXXXXXX_!!373400920.png" width = "446" height = "847" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i2/373400920/TB2zzYBlVXXXXb_XXXXXXXXXXXX_!!373400920.png" width = "446" height = "606" style="margin: 0">
+---
+
 ### 3.<span id="jump3">*`NSForegroundColorAttributeName`* <span/>//字颜色  UIColor
 ### 4.<span id="jump4">*`NSBackgroundColorAttributeName`* <span/>//背景色  UIColor
 
-<!-- more -->
-
 ---
 ### 5.<span id="jump5">*`NSLigatureAttributeName`*<span/> //连写,iOS只支持@(0)和@(1)
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2D1MflFXXXXaOXXXXXXXXXXXX_!!373400920.png" width = "272" height = "201" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2D1MflFXXXXaOXXXXXXXXXXXX_!!373400920.png" width = "272" height = "201" style="margin: 0">
 
 ---
 ### 6.<span id="jump6">*`NSKernAttributeName`*</span>//字间距
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2CDEqlFXXXXXfXXXXXXXXXXXX_!!373400920.png" width = "373" height = "220" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2CDEqlFXXXXXfXXXXXXXXXXXX_!!373400920.png" width = "373" height = "220" style="margin: 0">
 
 ---
 ### 7.<span id="jump7">*`NSStrikethroughStyleAttributeName`*</span> // 删除线
@@ -50,7 +57,7 @@ NSUnderlineStyleSingle                                  = 0x01,
 NSUnderlineStyleThick NS_ENUM_AVAILABLE(10_0, 7_0)      = 0x02,  2~8 取值越大,线越粗
 NSUnderlineStyleDouble NS_ENUM_AVAILABLE(10_0, 7_0)     = 0x09 
 ```
-><img src="https://img.alicdn.com/imgextra/i4/373400920/TB2vm28lFXXXXc1XXXXXXXXXXXX_!!373400920.png" width = "369" height = "268" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i4/373400920/TB2vm28lFXXXXc1XXXXXXXXXXXX_!!373400920.png" width = "369" height = "268" style="margin: 0">
 
 剩下的几个枚举需要配合上面的枚举来使用
 ```objc
@@ -62,30 +69,30 @@ NSUnderlinePatternDashDotDot NS_ENUM_AVAILABLE(10_0, 7_0) = 0x0400,//长短短 �
 
 NSUnderlineByWord NS_ENUM_AVAILABLE(10_0, 7_0)            = 0x8000//按单词分割
 ```
-><img src="https://img.alicdn.com/imgextra/i2/373400920/TB2KBvUlFXXXXcqXpXXXXXXXXXX_!!373400920.png" width = "371" height = "411" style="margin: 0"> 
+<img src="https://img.alicdn.com/imgextra/i2/373400920/TB2KBvUlFXXXXcqXpXXXXXXXXXX_!!373400920.png" width = "371" height = "411" style="margin: 0"> 
 ---
 
 ### 8.<span id="jump8">*`NSUnderlineStyleAttributeName`*</span>// 下划线(值也是枚举NSUnderlineStyle的数字类型-@(NSUnderlineStyle)参考NSStrikethroughStyleAttributeName)
-><img src="https://img.alicdn.com/imgextra/i4/373400920/TB2qJEblFXXXXXhXpXXXXXXXXXX_!!373400920.png" width = "371" height = "372" style="margin: 0"> 
+<img src="https://img.alicdn.com/imgextra/i4/373400920/TB2qJEblFXXXXXhXpXXXXXXXXXX_!!373400920.png" width = "371" height = "372" style="margin: 0"> 
 
 ---
 ### 9.<span id="jump9">*`NSStrokeColorAttributeName`*</span>// 笔画宽度和当前字的pointSize(字体大小)的比例,
 正数真空效果
-><img src="https://img.alicdn.com/imgextra/i4/373400920/TB2d9UylFXXXXX4XXXXXXXXXXXX_!!373400920.png" width = "372" height = "235" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i4/373400920/TB2d9UylFXXXXX4XXXXXXXXXXXX_!!373400920.png" width = "372" height = "235" style="margin: 0">
 
 ---
 
 ### 10.<span id="jump10">*`NSStrokeColorAttributeName`*</span>//NSStrokeColorAttributeName的颜色
-><img src="https://img.alicdn.com/imgextra/i1/373400920/TB20GkzlFXXXXafXXXXXXXXXXXX_!!373400920.png" width = "373" height = "121" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i1/373400920/TB20GkzlFXXXXafXXXXXXXXXXXX_!!373400920.png" width = "373" height = "121" style="margin: 0">
 
 ---
 ### 11.<span id="jump11">*`NSShadowAttributeName`*</span> //阴影,参考NSShadow
-><img src="https://img.alicdn.com/imgextra/i1/373400920/TB2Wmv1lFXXXXbRXpXXXXXXXXXX_!!373400920.png" width = "371" height = "72" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i1/373400920/TB2Wmv1lFXXXXbRXpXXXXXXXXXX_!!373400920.png" width = "371" height = "72" style="margin: 0">
 
 ---
 ### 12.<span id="jump12">*`NSTextEffectAttributeName`*</span>//凸版印刷体(现在就只有NSTextEffectLetterpressStyle一个值)
 凸版印刷替效果是给文字加上奇妙阴影和高光，让文字看起有凹凸感，像是被压在屏幕上(这个描述真是有够夸张 = =!)
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB29UgalFXXXXaXXpXXXXXXXXXX_!!373400920.png" width = "466" height = "47" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB29UgalFXXXXaXXpXXXXXXXXXX_!!373400920.png" width = "466" height = "47" style="margin: 0">
 
 
 ---
@@ -95,7 +102,7 @@ NSTextAttachment *attach=[[NSTextAttachment alloc]init];
     attach.image=[UIImage imageNamed:@"1178298162bf1917"];
     [base insertAttributedString:[NSAttributedString attributedStringWithAttachment:attach] atIndex:6];
 ```
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2v12_lFXXXXa3XpXXXXXXXXXX_!!373400920.png" width = "369" height = "177" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2v12_lFXXXXa3XpXXXXXXXXXX_!!373400920.png" width = "369" height = "177" style="margin: 0">
 
 ---
 ### 14.<span id="jump14">*`NSLinkAttributeName`*</span>//链接,但是不负责点击的处理
@@ -105,7 +112,7 @@ NSRange rang=NSMakeRange(0, base.length);
 [base addAttribute:NSLinkAttributeName value:[NSURL URLWithString:@"http://www.google.com"] 
 range:[string rangeOfString:@"http://www.google.com"]];
 ```
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2ud.vlFXXXXbzXXXXXXXXXXXX_!!373400920.png" width = "365" height = "45" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2ud.vlFXXXXbzXXXXXXXXXXXX_!!373400920.png" width = "365" height = "45" style="margin: 0">
 
 一般配合UITextView使用
 ```objc
@@ -120,7 +127,7 @@ range:[string rangeOfString:@"http://www.google.com"]];
 ### 15.<span id="jump15">*`NSBaselineOffsetAttributeName`*</span>//离BaseLine的距离
 [什么是BaseLine?](https://developer.apple.com/library/mac/documentation/TextFonts/Conceptual/CocoaTextArchitecture/FontHandling/FontHandling.html#//apple_ref/doc/uid/TP40009459-CH5-SW1)
 ![](https://developer.apple.com/library/mac/documentation/TextFonts/Conceptual/CocoaTextArchitecture/Art/glyph_metrics_2x.png)
-><img src="https://img.alicdn.com/imgextra/i4/373400920/TB29L.tlFXXXXcsXXXXXXXXXXXX_!!373400920.png" width = "367" height = "75" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i4/373400920/TB29L.tlFXXXXcsXXXXXXXXXXXX_!!373400920.png" width = "367" height = "75" style="margin: 0">
 
 ---
 ### 16.<span id="jump16">*`NSUnderlineColorAttributeName`*</span>//下划线的颜色
@@ -131,15 +138,15 @@ range:[string rangeOfString:@"http://www.google.com"]];
 
 ---
 ### 18.<span id="jump18">*`NSObliquenessAttributeName`*</span>//倾斜
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2le.DlFXXXXaDXXXXXXXXXXXX_!!373400920.png" width = "371" height = "383" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2le.DlFXXXXaDXXXXXXXXXXXX_!!373400920.png" width = "371" height = "383" style="margin: 0">
 
 ---
 ### 19.<span id="jump19">*`NSExpansionAttributeName`*</span>//"胖"or "瘦"(拉伸or压缩)
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2ru.qlFXXXXc_XXXXXXXXXXXX_!!373400920.png" width = "370" height = "286" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2ru.qlFXXXXc_XXXXXXXXXXXX_!!373400920.png" width = "370" height = "286" style="margin: 0">
 
 ---
 ### 20.<span id="jump20">*`NSWritingDirectionAttributeName`*</span>//文字的排布顺序(从左到右还是从右到左)
-><img src="https://img.alicdn.com/imgextra/i3/373400920/TB2YfgLlFXXXXX8XXXXXXXXXXXX_!!373400920.png" width = "686" height = "273" style="margin: 0">
+<img src="https://img.alicdn.com/imgextra/i3/373400920/TB2YfgLlFXXXXX8XXXXXXXXXXXX_!!373400920.png" width = "686" height = "273" style="margin: 0">
 
 ```objc
 //不太明白这个枚举值的两个意思...之后如果有机会明白再解释他们

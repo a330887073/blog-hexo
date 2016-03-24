@@ -11,6 +11,8 @@ author: Kael
 1.RACSignal类的简单使用
 2.subscribeNext就能处理数据,看看RAC源码是怎么做的,这个订阅过程是怎么样的
 
+<!-- more -->
+
 ## RACSignal
 RAC的核心,如果用RAC写项目,这个家伙应该是项目中使用次数最多的类.
 
