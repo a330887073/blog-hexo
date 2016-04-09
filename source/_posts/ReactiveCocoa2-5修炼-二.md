@@ -10,7 +10,7 @@ author: Kael
 1.map操作的源码阅读;(其实是flattenMap:的源码)
 2.filter操作
 3.空信号RACEmptySignal
-
+<!-- more -->
 ## RACStream
 `RACStream`是`RACSignal`和`RACSequence`的父类,所以很多方法定义在`RACStream`中,`RACStream`是一个抽象类.     
 来看看`RACStream`中定义了些什么东西

@@ -10,7 +10,7 @@ author: Kael
 2.then
 3.merge
 4.flatten
-
+<!-- more -->
 ## concat:
 写了简单的例子测试下:
 ```objc
